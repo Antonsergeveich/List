@@ -142,5 +142,8 @@ void main()
 	list.reverse_print();
 	list.push_back(256);
 	list.print();
-
+	list.pop_front();
+	list.print();
+	list.pop_back();
+	list.print();
 }
