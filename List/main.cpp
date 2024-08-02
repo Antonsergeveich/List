@@ -50,6 +50,12 @@ public:
 		while (Head)pop_front();
 		cout << "LDestructor:\t" << this << endl;
 	}
+	List(const std::initializer_list<int>& il) :List()
+	{
+		for (int const* it = il.begin(); it != il.end(); ++it)
+		{
+
+		}
 
 	//                 Adding elements:
 	void push_front(int Data)
@@ -158,9 +164,12 @@ public:
 	}
 };
 
+//#define BASE_CHECK
+
 void main()
 {
 	setlocale(LC_ALL, "");
+#ifdef BASE_CHECK
 	int n;
 	cout << "Введите размер списка: "; cin >> n;
 	List list;
@@ -179,4 +188,9 @@ void main()
 	list.print();
 	list.insert(128, 123);
 	list.print();
+#endif // BASE_CHECK
+
+	List list = { 3,5,8,13,21 };
+	list.print();
+
 }
