@@ -89,10 +89,11 @@ public:
 	void pop_front()
 	{
 		if (Head == nullptr && Tail == nullptr)return; // Если указывают на ноль, то ничего не делаем;
-		if (Head == Tail) // Если указывают на один и тот же элемент;
+		if (Head == Tail) // Если Head и Tail указывают на один и тот же элемент;
 		{
 			delete Head;            //удаляем голову
 			Head = Tail = nullptr;  //обнуляем Head и Tail
+			size--;
 			return;
 		}
 		Head = Head->pNext;     // Убираем нулевой элемент из списка
@@ -102,11 +103,40 @@ public:
 	}
 	void pop_back()
 	{
-		if (Head == Tail)return pop_front(); //ЕЕсли один элемент в списке то с начала удаляем
+		if (Head == Tail)return pop_front(); //Если один элемент в списке то удаляем с начала 
 		Tail = Tail->pPrev;     // Привязываем хвост к предыдущему элементу
 		delete Tail->pNext;     // Удаляем последний элемент 
 		Tail->pNext = nullptr;  // Новый последний элемент указываем на ноль, так как он указывает на удалённый элемент
 		size--;
+	}
+	void insert(int Data, int index)
+	{
+		if (index > size)return;
+		if (index == 0)return push_front(Data);
+		if (index == size)return push_back(Data);
+		Element* Temp;
+		if (index < size / 2)
+		{
+			Temp = Head;
+			for (int i = 0; i < index; i++)
+			{
+				Temp = Temp->pNext;
+			}
+		}
+		else
+		{
+			Temp = Tail;
+			for (int i = 0; i < size - index - 1; i++)
+			{
+				Temp = Temp->pPrev;
+			}
+		}
+		Element* New = new Element(Data);
+		New->pNext = Temp;
+		New->pPrev = Temp->pPrev;
+		Temp->pPrev->pNext = New;
+		Temp->pPrev = New;
+		size++;
 	}
 
 	//                      Methods:
@@ -136,7 +166,8 @@ void main()
 	List list;
 	for (int i = 0; i < n; i++)
 	{
-		list.push_front(rand() % 100);
+		list.push_back(rand() % 100);
+		//list.push_front(rand() % 100);
 	}
 	list.print();
 	list.reverse_print();
@@ -145,5 +176,7 @@ void main()
 	list.pop_front();
 	list.print();
 	list.pop_back();
+	list.print();
+	list.insert(128, 123);
 	list.print();
 }
