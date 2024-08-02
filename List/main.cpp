@@ -89,10 +89,10 @@ public:
 	void pop_front()
 	{
 		if (Head == nullptr && Tail == nullptr)return; // Если указывают на ноль, то ничего не делаем;
-		if (Head == Tail) // Если указывают на один и тот же элемент, то удаляем голову и обнуляем;
+		if (Head == Tail) // Если указывают на один и тот же элемент;
 		{
-			delete Head;
-			Head = Tail = nullptr;
+			delete Head;            //удаляем голову
+			Head = Tail = nullptr;  //обнуляем Head и Tail
 			return;
 		}
 		Head = Head->pNext;     // Убираем нулевой элемент из списка
