@@ -83,6 +83,14 @@ public:
 		}
 		cout << "Количество элементов в списке: " << size << endl;
 	}
+	void reverce_print()
+	{
+		for (Element* Temp = Tail; Temp; Temp = Temp->pPrev)
+		{
+			cout << Temp->pPrev << tab << Temp << tab << Temp->Data << tab << Temp->pNext << endl;
+		}
+		cout << "Количество элементов в списке: " << size << endl;
+	}
 };
 
 void main()
@@ -96,4 +104,5 @@ void main()
 		list.push_front(rand() % 100);
 	}
 	list.print();
+	list.reverce_print();
 }
