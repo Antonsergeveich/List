@@ -47,6 +47,7 @@ public:
 	}
 	~List()
 	{
+		while (Head)pop_front();
 		cout << "LDestructor:\t" << this << endl;
 	}
 
@@ -73,6 +74,37 @@ public:
 		}
 		size++;
 	}
+	void push_back(int Data)
+	{
+		if (Head == nullptr && Tail == nullptr)return push_front(Data);
+		else
+		{
+			Element* New = new Element(Data); // Создаём новый элемент
+			New->pPrev = Tail;                // Привязываем новый элемент к концу списка
+			Tail->pNext = New;                // Привязываем хвост к новому элементу
+			Tail = New;                       // Смещаем хвост на новый элемент
+		}
+		size++;
+	}
+	void pop_front()
+	{
+		if (Head == nullptr && Tail == nullptr)return; // Если указывают на ноль, то ничего не делаем;
+		if (Head == Tail) // Если указывают на один и тот же элемент, то удаляем голову и обнуляем;
+		{
+			delete Head;
+			Head = Tail = nullptr;
+			return;
+		}
+		Head = Head->pNext;     // Убираем нулевой элемент из списка
+		delete Head->pPrev;     // Удаляем нулевой элемент из памяти
+		Head->pPrev = nullptr;  // Делаем указатель Head->pPrev нулевым чтобы он не указывал на удалённый элемент
+		size--;
+	}
+	void pop_back()
+	{
+
+		size--;
+	}
 
 	//                      Methods:
 	void print()const
@@ -83,7 +115,7 @@ public:
 		}
 		cout << "Количество элементов в списке: " << size << endl;
 	}
-	void reverce_print()
+	void reverse_print()
 	{
 		for (Element* Temp = Tail; Temp; Temp = Temp->pPrev)
 		{
@@ -104,5 +136,8 @@ void main()
 		list.push_front(rand() % 100);
 	}
 	list.print();
-	list.reverce_print();
+	list.reverse_print();
+	list.push_back(256);
+	list.print();
+
 }
