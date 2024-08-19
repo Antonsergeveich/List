@@ -160,6 +160,14 @@ public:
 	{
 		return nullptr;
 	}
+	Iterator begin()const
+	{
+		return Head;
+	}
+	Iterator end()const
+	{
+		return nullptr;
+	}
 	ReverseIterator rbegin()
 	{
 		return Tail;
@@ -174,11 +182,6 @@ public:
 		size = 0;
 		cout << "LConstructor:\t" << this << endl;
 	}
-	~List()
-	{
-		while (Head)pop_front();
-		cout << "LDestructor:\t" << this << endl;
-	}
 	List(const std::initializer_list<int>& il) :List()
 	{
 		for (int const* it = il.begin(); it != il.end(); ++it)
@@ -186,6 +189,27 @@ public:
 			push_back(*it);
 		}
 	}
+	List(const List& other) : List()
+	{
+		*this = other;
+		cout << "CopyConstructor:\t" << this << endl;
+	}
+	~List()
+	{
+		while (Tail)pop_back();
+		cout << "LDestructor:\t" << this << endl;
+	}
+
+	//                 Operators:
+	List& operator=(const List& other)
+	{
+		if (this == &other)return *this;
+		while (Head)pop_front();
+		for (Element* Temp = other.Head; Temp; Temp = Temp->pNext)push_back(Temp->Data);
+		cout << "CopyAssignment:\t" << this << endl;
+		return *this;
+	}
+
 	//                 Adding elements:
 	void push_front(int Data)
 	{
@@ -293,8 +317,20 @@ public:
 	}
 };
 
+List operator+(const List& left, const List& right)
+{
+	List buffer = left;
+	for (List::Iterator it = right.begin(); it != right.end(); ++it)
+	{
+		buffer.push_back(*it);
+	}
+	return buffer;
+}
+
 //#define BASE_CHECK
 //#define ITERATORS_CHECK
+#define OPERATOR_PLUS_CHECK
+
 void main()
 {
 	setlocale(LC_ALL, "");
@@ -331,4 +367,10 @@ void main()
 	cout << endl;
 #endif // ITERATORS_CHECK
 
+	List list1 = { 3,5,8,13,21 };
+	List list2 = { 34,55,89 };
+	List list3 = list1 + list2;
+	for (int i : list1)cout << i << tab; cout << endl;
+	for (int i : list2)cout << i << tab; cout << endl;
+	for (int i : list3)cout << i << tab; cout << endl;
 }
