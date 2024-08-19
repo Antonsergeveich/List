@@ -228,16 +228,18 @@ public:
 		else
 		{
 			//1) Создаём новый элемент:
-			Element* New = new Element(Data);
+			//Element* New = new Element(Data);
 
 			//2) Привязываем новый элемент к началу списка:
-			New->pNext = Head;
+			//New->pNext = Head;
 
 			//3) Привязываем головной элемент списка к новому элементу:
-			Head->pPrev = New;
+			//Head->pPrev = New;
 
 			//4) Смещаем голову на новый элемент:
-			Head = New;
+			//Head = New;
+
+			Head = Head->pPrev = new Element(Data, Head);
 		}
 		size++;
 	}
@@ -331,6 +333,7 @@ List operator+(const List& left, const List& right)
 	for (List::Iterator it = right.begin(); it != right.end(); ++it)
 	{
 		buffer.push_back(*it);
+		*it *= 10;
 	}
 	return buffer;
 }
