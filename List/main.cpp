@@ -1,4 +1,5 @@
 ﻿#include<iostream>
+#include <new.h>
 using namespace std;
 
 using std::cin;
@@ -39,6 +40,50 @@ class List
 		Этот тип используется : для хранения размеров объектов; для индексации массивов; для адресной арифметики.*/
     //https://cplusplus.com/reference/cstddef/size_t/
 public:
+	class Iterator
+	{
+		Element* Temp;
+	public:
+		Iterator(Element* Temp = nullptr) :Temp(Temp)
+		{
+			cout << "ItConstructor:\t" << this << endl;
+		}
+		~Iterator()
+		{
+			cout << "ItDestructor:\t" << this << endl;
+		}
+
+		Iterator& operator++()
+		{
+			Temp = Temp->pNext;
+			return *this;
+		}
+		Iterator operator++(int)
+		{
+			Iterator old = *this;
+			Temp = Temp->pNext;
+			return old;
+		}
+		Iterator& operator--()
+		{
+			Temp = Temp->pPrev;
+			return *this;
+		}
+		Iterator operator--(int)
+		{
+			Iterator old = *this;
+			Temp = Temp->pPrev;
+			return old;
+		}
+	};
+	Iterator begin()
+	{
+		return Head;
+	}
+	Iterator end()
+	{
+		return nullptr;
+	}
 	List()
 	{
 		Head = Tail = nullptr;
@@ -54,9 +99,9 @@ public:
 	{
 		for (int const* it = il.begin(); it != il.end(); ++it)
 		{
-
+			push_back(*it);
 		}
-
+	}
 	//                 Adding elements:
 	void push_front(int Data)
 	{
@@ -191,6 +236,7 @@ void main()
 #endif // BASE_CHECK
 
 	List list = { 3,5,8,13,21 };
-	list.print();
+	//list.print();
+	for (int i : list)cout << i << tab; cout << endl;
 
 }
