@@ -20,14 +20,18 @@ class List
 		Element(int Data, Element* pNext = nullptr, Element* pPrev = nullptr)
 			:Data(Data), pNext(pNext), pPrev(pPrev)
 		{
+#ifdef DEBUG
 			cout << "EConstructor:\t" << this << endl;
+#endif // DEBUG
 		}
 		~Element()
 		{
+#ifdef DEBUG
 			cout << "EDestructor:\t" << this << endl;
+#endif // DEBUG
 		}
 		friend class List;
-	}*Head, *Tail;  //объекты класса можно объявлять непосредственно после его описания.
+	}*Head, * Tail;  //объекты класса можно объявлять непосредственно после его описания.
 	//Element* Head;
 	//Element* Tail;
 	size_t size; //typedef unsigned __int64 size_t;
@@ -38,7 +42,7 @@ class List
 		Он является типом результата, возвращаемого оператором sizeof и alignof.Максимально допустимым значением типа size_t является константа SIZE_MAX.
 		Размер size_t выбирается таким образом, чтобы в него можно было записать максимальный размер теоретически возможного массива или объекта.
 		Этот тип используется : для хранения размеров объектов; для индексации массивов; для адресной арифметики.*/
-    //https://cplusplus.com/reference/cstddef/size_t/
+		//https://cplusplus.com/reference/cstddef/size_t/
 public:
 	class Iterator
 	{
@@ -46,11 +50,15 @@ public:
 	public:
 		Iterator(Element* Temp = nullptr) :Temp(Temp)
 		{
+#ifdef DEBUG
 			cout << "ItConstructor:\t" << this << endl;
+#endif // DEBUG
 		}
 		~Iterator()
 		{
+#ifdef DEBUG
 			cout << "ItDestructor:\t" << this << endl;
+#endif // DEBUG
 		}
 
 		Iterator& operator++()
@@ -367,10 +375,13 @@ void main()
 	cout << endl;
 #endif // ITERATORS_CHECK
 
+#ifdef OPERATOR_PLUS_CHECK
 	List list1 = { 3,5,8,13,21 };
 	List list2 = { 34,55,89 };
 	List list3 = list1 + list2;
 	for (int i : list1)cout << i << tab; cout << endl;
 	for (int i : list2)cout << i << tab; cout << endl;
 	for (int i : list3)cout << i << tab; cout << endl;
+#endif // OPERATOR_PLUS_CHECK
+
 }
