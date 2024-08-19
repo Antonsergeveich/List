@@ -75,12 +75,96 @@ public:
 			Temp = Temp->pPrev;
 			return old;
 		}
+
+		//             Comparison operators:
+		bool operator==(const Iterator& other)const
+		{
+			return this->Temp == other.Temp;
+		}
+		bool operator!=(const Iterator& other)const
+		{
+			return this->Temp != other.Temp;
+		}
+
+		const int& operator*()const
+		{
+			return Temp->Data;
+		}
+		int& operator*()
+		{
+			return Temp->Data;
+		}
+	};
+	class ReverseIterator
+	{
+		Element* Temp;
+	public:
+		ReverseIterator(Element* Temp = nullptr) :Temp(Temp)
+		{
+			cout << "RitConstructor:\t" << this << endl;
+		}
+		~ReverseIterator()
+		{
+			cout << "RitDestructor:\t" << this << endl;
+		}
+
+		//                 Incremento/Decremento:
+		ReverseIterator& operator++()
+		{
+			Temp = Temp->pPrev;
+			return *this;
+		}
+		ReverseIterator operator++(int)
+		{
+			ReverseIterator old = *this;
+			Temp = Temp->pPrev;
+			return old;
+		}
+		ReverseIterator& operator--()
+		{
+			Temp = Temp->pNext;
+			return *this;
+		}
+		ReverseIterator operator--(int)
+		{
+			ReverseIterator old = *this;
+			Temp = Temp->pNext;
+			return old;
+		}
+
+		//              Comparison operattors:
+		bool operator==(const ReverseIterator& other)const
+		{
+			return this->Temp == other.Temp;
+		}
+		bool operator!=(const ReverseIterator& other)const
+		{
+			return this->Temp != other.Temp;
+		}
+
+		//              Dereference operators (операторы разыименования):
+		const int& operator*()const
+		{
+			return Temp->Data;
+		}
+		int& operator*()
+		{
+			return Temp->Data;
+		}
 	};
 	Iterator begin()
 	{
 		return Head;
 	}
 	Iterator end()
+	{
+		return nullptr;
+	}
+	ReverseIterator rbegin()
+	{
+		return Tail;
+	}
+	ReverseIterator rend()
 	{
 		return nullptr;
 	}
@@ -210,7 +294,7 @@ public:
 };
 
 //#define BASE_CHECK
-
+//#define ITERATORS_CHECK
 void main()
 {
 	setlocale(LC_ALL, "");
@@ -235,8 +319,16 @@ void main()
 	list.print();
 #endif // BASE_CHECK
 
+#ifdef ITERATORS_CHECK
 	List list = { 3,5,8,13,21 };
 	//list.print();
 	for (int i : list)cout << i << tab; cout << endl;
+
+	for (List::ReverseIterator it = list.rbegin(); it != list.rend(); ++it)
+	{
+		cout << *it << tab;
+	}
+	cout << endl;
+#endif // ITERATORS_CHECK
 
 }
