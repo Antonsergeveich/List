@@ -59,7 +59,6 @@ class List
 		{
 			return this->Temp != other.Temp;
 		}
-
 		//              Dereference operators (операторы разыименования):
 		const int& operator*()const
 		{
@@ -95,40 +94,66 @@ public:
 			return old;
 		}
 	};
-	class ReverseIterator : public ConstBaseIterator
+	class ConstReverseIterator : public ConstBaseIterator
 	{
 	public:
-		ReverseIterator(Element* Temp = nullptr) :ConstBaseIterator(Temp){}
-		~ReverseIterator(){}
+		ConstReverseIterator(Element* Temp = nullptr) :ConstBaseIterator(Temp){}
+		~ConstReverseIterator(){}
 		//                 Incremento/Decremento:
-		ReverseIterator& operator++()
+		ConstReverseIterator& operator++()
 		{
 			Temp = Temp->pPrev;
 			return *this;
 		}
-		ReverseIterator operator++(int)
+		ConstReverseIterator operator++(int)
 		{
-			ReverseIterator old = *this;
+			ConstReverseIterator old = *this;
 			Temp = Temp->pPrev;
 			return old;
 		}
-		ReverseIterator& operator--()
+		ConstReverseIterator& operator--()
 		{
 			Temp = Temp->pNext;
 			return *this;
 		}
-		ReverseIterator operator--(int)
+		ConstReverseIterator operator--(int)
 		{
-			ReverseIterator old = *this;
+			ConstReverseIterator old = *this;
 			Temp = Temp->pNext;
 			return old;
 		}
 	};
-	ConstIterator begin()
+	// Если возникает необходимость изменить значение в списке, 
+	// то кроме константных итераторов нужны ещё и обычные итераторы.
+	// Обычные итераторы будут дополнять 
+	// константные итераторы обычным не константным разъименованием.
+
+	class Iterator : public ConstIterator
+	{
+	public:
+		Iterator(Element* Temp = nullptr) :ConstIterator(Temp){}
+		~Iterator(){}
+		int& operator*()
+		{
+			return Temp->Data;
+		}
+	};
+	class ReverseIterator :public ConstReverseIterator
+	{
+	public:
+		ReverseIterator(Element* Temp = nullptr): ConstReverseIterator(Temp){}
+		~ReverseIterator(){}
+		int& operator*()
+		{
+			return Temp->Data;
+		}
+	};
+
+	Iterator begin()
 	{
 		return Head;
 	}
-	ConstIterator end()
+	Iterator end()
 	{
 		return nullptr;
 	}
@@ -145,6 +170,14 @@ public:
 		return Tail;
 	}
 	ReverseIterator rend()
+	{
+		return nullptr;
+	}
+	ConstReverseIterator rbegin()const
+	{
+		return Tail;
+	}
+	ConstReverseIterator rend()const
 	{
 		return nullptr;
 	}
@@ -302,7 +335,8 @@ List operator+(const List& left, const List& right)
 	for (List::ConstIterator it = right.begin(); it != right.end(); ++it)
 	{
 		buffer.push_back(*it);
-		//*it *= 10; // Для того чтобы невозможно было изменить операнды оператора +
+		//*it *= 10; 
+		//Для того чтобы невозможно было изменить операнды оператора +
 		//создаём базовый класс с константными методами 
 		//которые не дают изменять объекты для которых вызываются
 	}
@@ -357,7 +391,11 @@ void main()
 	for (int i : list1)cout << i << tab; cout << endl;
 	for (int i : list2)cout << i << tab; cout << endl;
 	for (int i : list3)cout << i << tab; cout << endl;
+
+	for (List::Iterator it = list3.begin(); it != list3.end(); ++it)
+	{
+		*it *= 100;
+	}
+	for (int i : list3) cout << i << tab; cout << endl;
 #endif // OPERATOR_PLUS_CHECK
-
-
 }
