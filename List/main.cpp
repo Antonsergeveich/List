@@ -194,6 +194,7 @@ public:
 	{
 		for (int const* it = il.begin(); it != il.end(); ++it)
 		{
+			//push_front(*it);
 			push_back(*it);
 		}
 	}
@@ -227,16 +228,16 @@ public:
 		}
 		else
 		{
-			//1) Создаём новый элемент:
+			////1) Создаём новый элемент:
 			//Element* New = new Element(Data);
 
-			//2) Привязываем новый элемент к началу списка:
+			////2) Привязываем новый элемент к началу списка:
 			//New->pNext = Head;
 
-			//3) Привязываем головной элемент списка к новому элементу:
+			////3) Привязываем головной элемент списка к новому элементу:
 			//Head->pPrev = New;
 
-			//4) Смещаем голову на новый элемент:
+			////4) Смещаем голову на новый элемент:
 			//Head = New;
 
 			Head = Head->pPrev = new Element(Data, Head);
@@ -248,10 +249,11 @@ public:
 		if (Head == nullptr && Tail == nullptr)return push_front(Data);
 		else
 		{
-			Element* New = new Element(Data); // Создаём новый элемент
-			New->pPrev = Tail;                // Привязываем новый элемент к концу списка
-			Tail->pNext = New;                // Привязываем хвост к новому элементу
-			Tail = New;                       // Смещаем хвост на новый элемент
+			//Element* New = new Element(Data); // Создаём новый элемент
+			//New->pPrev = Tail;                // Привязываем новый элемент к концу списка
+			//Tail->pNext = New;                // Привязываем хвост к новому элементу
+			//Tail = New;                       // Смещаем хвост на новый элемент
+			Tail = Tail->pNext = new Element(Data, nullptr, Tail);
 		}
 		size++;
 	}
@@ -300,11 +302,14 @@ public:
 				Temp = Temp->pPrev;
 			}
 		}
-		Element* New = new Element(Data);
+		/*Element* New = new Element(Data);
 		New->pNext = Temp;
 		New->pPrev = Temp->pPrev;
 		Temp->pPrev->pNext = New;
-		Temp->pPrev = New;
+		Temp->pPrev = New;*/
+
+		Temp->pPrev = Temp->pPrev->pNext = new Element(Data, Temp, Temp->pPrev);
+
 		size++;
 	}
 
@@ -340,11 +345,12 @@ List operator+(const List& left, const List& right)
 
 //#define BASE_CHECK
 //#define ITERATORS_CHECK
-#define OPERATOR_PLUS_CHECK
+//#define OPERATOR_PLUS_CHECK
 
 void main()
 {
 	setlocale(LC_ALL, "");
+
 #ifdef BASE_CHECK
 	int n;
 	cout << "Введите размер списка: "; cin >> n;
@@ -386,5 +392,6 @@ void main()
 	for (int i : list2)cout << i << tab; cout << endl;
 	for (int i : list3)cout << i << tab; cout << endl;
 #endif // OPERATOR_PLUS_CHECK
+
 
 }
