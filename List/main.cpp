@@ -65,10 +65,6 @@ class List
 		{
 			return Temp->Data;
 		}
-		/*int& operator*()
-		{
-			return Temp->Data;
-		}*/
 	};
 public:
 	class ConstIterator : public ConstBaseIterator
@@ -306,7 +302,9 @@ List operator+(const List& left, const List& right)
 	for (List::ConstIterator it = right.begin(); it != right.end(); ++it)
 	{
 		buffer.push_back(*it);
-		//*it *= 10;
+		//*it *= 10; // Для того чтобы невозможно было изменить операнды оператора +
+		//создаём базовый класс с константными методами 
+		//которые не дают изменять объекты для которых вызываются
 	}
 	return buffer;
 }
