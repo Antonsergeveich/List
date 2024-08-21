@@ -8,6 +8,7 @@ using std::endl;
 
 #define tab "\t"
 
+template<typename T>
 class List
 {
 	class Element
