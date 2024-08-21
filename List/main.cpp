@@ -43,79 +43,67 @@ class List
 		Размер size_t выбирается таким образом, чтобы в него можно было записать максимальный размер теоретически возможного массива или объекта.
 		Этот тип используется : для хранения размеров объектов; для индексации массивов; для адресной арифметики.*/
 		//https://cplusplus.com/reference/cstddef/size_t/
-public:
-	class Iterator
+	class ConstBaseIterator
 	{
+	protected:
 		Element* Temp;
 	public:
-		Iterator(Element* Temp = nullptr) :Temp(Temp)
-		{
-#ifdef DEBUG
-			cout << "ItConstructor:\t" << this << endl;
-#endif // DEBUG
-		}
-		~Iterator()
-		{
-#ifdef DEBUG
-			cout << "ItDestructor:\t" << this << endl;
-#endif // DEBUG
-		}
-
-		Iterator& operator++()
-		{
-			Temp = Temp->pNext;
-			return *this;
-		}
-		Iterator operator++(int)
-		{
-			Iterator old = *this;
-			Temp = Temp->pNext;
-			return old;
-		}
-		Iterator& operator--()
-		{
-			Temp = Temp->pPrev;
-			return *this;
-		}
-		Iterator operator--(int)
-		{
-			Iterator old = *this;
-			Temp = Temp->pPrev;
-			return old;
-		}
-
+		ConstBaseIterator(Element* Temp = nullptr) :Temp(Temp){}
+		~ConstBaseIterator() {}
 		//             Comparison operators:
-		bool operator==(const Iterator& other)const
+		bool operator==(const ConstBaseIterator& other)const
 		{
 			return this->Temp == other.Temp;
 		}
-		bool operator!=(const Iterator& other)const
+		bool operator!=(const ConstBaseIterator& other)const
 		{
 			return this->Temp != other.Temp;
 		}
 
+		//              Dereference operators (операторы разыименования):
 		const int& operator*()const
 		{
 			return Temp->Data;
 		}
-		int& operator*()
+		/*int& operator*()
 		{
 			return Temp->Data;
+		}*/
+	};
+public:
+	class ConstIterator : public ConstBaseIterator
+	{
+	public:
+		ConstIterator(Element* Temp = nullptr) :ConstBaseIterator(Temp){}
+		~ConstIterator(){}
+		ConstIterator& operator++()
+		{
+			Temp = Temp->pNext;
+			return *this;
+		}
+		ConstIterator operator++(int)
+		{
+			ConstIterator old = *this;
+			Temp = Temp->pNext;
+			return old;
+		}
+		ConstIterator& operator--()
+		{
+			Temp = Temp->pPrev;
+			return *this;
+		}
+		ConstIterator operator--(int)
+		{
+			ConstIterator old = *this;
+			Temp = Temp->pPrev;
+			return old;
 		}
 	};
-	class ReverseIterator
+	class ReverseIterator : public ConstBaseIterator
 	{
-		Element* Temp;
 	public:
-		ReverseIterator(Element* Temp = nullptr) :Temp(Temp)
-		{
-			cout << "RitConstructor:\t" << this << endl;
-		}
-		~ReverseIterator()
-		{
-			cout << "RitDestructor:\t" << this << endl;
-		}
-
+		ReverseIterator(Element* Temp = nullptr) :ConstBaseIterator(Temp){}
+		~ReverseIterator(){}
 		//                 Incremento/Decremento:
 		ReverseIterator& operator++()
 		{
@@ -139,40 +127,20 @@ public:
 			Temp = Temp->pNext;
 			return old;
 		}
-
-		//              Comparison operattors:
-		bool operator==(const ReverseIterator& other)const
-		{
-			return this->Temp == other.Temp;
-		}
-		bool operator!=(const ReverseIterator& other)const
-		{
-			return this->Temp != other.Temp;
-		}
-
-		//              Dereference operators (операторы разыименования):
-		const int& operator*()const
-		{
-			return Temp->Data;
-		}
-		int& operator*()
-		{
-			return Temp->Data;
-		}
 	};
-	Iterator begin()
+	ConstIterator begin()
 	{
 		return Head;
 	}
-	Iterator end()
+	ConstIterator end()
 	{
 		return nullptr;
 	}
-	Iterator begin()const
+	ConstIterator begin()const
 	{
 		return Head;
 	}
-	Iterator end()const
+	ConstIterator end()const
 	{
 		return nullptr;
 	}
@@ -335,17 +303,17 @@ public:
 List operator+(const List& left, const List& right)
 {
 	List buffer = left;
-	for (List::Iterator it = right.begin(); it != right.end(); ++it)
+	for (List::ConstIterator it = right.begin(); it != right.end(); ++it)
 	{
 		buffer.push_back(*it);
-		*it *= 10;
+		//*it *= 10;
 	}
 	return buffer;
 }
 
 //#define BASE_CHECK
 //#define ITERATORS_CHECK
-//#define OPERATOR_PLUS_CHECK
+#define OPERATOR_PLUS_CHECK
 
 void main()
 {
