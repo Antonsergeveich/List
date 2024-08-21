@@ -48,7 +48,7 @@ class List
 	protected:
 		Element* Temp;
 	public:
-		ConstBaseIterator(Element* Temp = nullptr) :Temp(Temp){}
+		ConstBaseIterator(Element* Temp = nullptr) :Temp(Temp) {}
 		~ConstBaseIterator() {}
 		//             Comparison operators:
 		bool operator==(const ConstBaseIterator& other)const
@@ -69,8 +69,8 @@ public:
 	class ConstIterator : public ConstBaseIterator
 	{
 	public:
-		ConstIterator(Element* Temp = nullptr) :ConstBaseIterator(Temp){}
-		~ConstIterator(){}
+		ConstIterator(Element* Temp = nullptr) :ConstBaseIterator(Temp) {}
+		~ConstIterator() {}
 		ConstIterator& operator++()
 		{
 			Temp = Temp->pNext;
@@ -97,8 +97,8 @@ public:
 	class ConstReverseIterator : public ConstBaseIterator
 	{
 	public:
-		ConstReverseIterator(Element* Temp = nullptr) :ConstBaseIterator(Temp){}
-		~ConstReverseIterator(){}
+		ConstReverseIterator(Element* Temp = nullptr) :ConstBaseIterator(Temp) {}
+		~ConstReverseIterator() {}
 		//                 Incremento/Decremento:
 		ConstReverseIterator& operator++()
 		{
@@ -131,8 +131,8 @@ public:
 	class Iterator : public ConstIterator
 	{
 	public:
-		Iterator(Element* Temp = nullptr) :ConstIterator(Temp){}
-		~Iterator(){}
+		Iterator(Element* Temp = nullptr) :ConstIterator(Temp) {}
+		~Iterator() {}
 		int& operator*()
 		{
 			return Temp->Data;
@@ -141,8 +141,8 @@ public:
 	class ReverseIterator :public ConstReverseIterator
 	{
 	public:
-		ReverseIterator(Element* Temp = nullptr): ConstReverseIterator(Temp){}
-		~ReverseIterator(){}
+		ReverseIterator(Element* Temp = nullptr) : ConstReverseIterator(Temp) {}
+		~ReverseIterator() {}
 		int& operator*()
 		{
 			return Temp->Data;
@@ -311,6 +311,13 @@ public:
 	}
 	void erase(int index)
 	{
+		if (index >= size)
+		{
+			cout << "Error: out of range" << endl;
+			return;
+		}
+		if (index == 0)return pop_front();
+		if (index == size - 1)return pop_back();
 		Element* Temp;
 		if (index < size / 2)
 		{
@@ -328,9 +335,9 @@ public:
 				Temp = Temp->pPrev;
 			}
 		}
-		Temp->pPrev->pNext = Temp->pNext;
-		Temp->pNext->pPrev = Temp->pPrev;
-		delete Temp;
+		Temp->pPrev->pNext = Temp->pNext; //записываем в предыдущий элемент адрес следующего за удаляемым 
+		Temp->pNext->pPrev = Temp->pPrev; //записываем в следующий элемент адрес предыдущего перед удаляемым
+		delete Temp;                      //удаляем элемент
 		size--;
 	}
 
@@ -367,9 +374,9 @@ List operator+(const List& left, const List& right)
 	return buffer;
 }
 
-//#define BASE_CHECK
+#define BASE_CHECK
 //#define ITERATORS_CHECK
-#define OPERATOR_PLUS_CHECK
+//#define OPERATOR_PLUS_CHECK
 
 void main()
 {
@@ -393,6 +400,8 @@ void main()
 	list.pop_back();
 	list.print();
 	list.insert(128, 123);
+	list.print();
+	list.erase(0);
 	list.print();
 #endif // BASE_CHECK
 
