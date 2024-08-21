@@ -8,7 +8,6 @@ using std::endl;
 
 #define tab "\t"
 
-template<typename T>
 class List
 {
 	class Element
@@ -309,6 +308,30 @@ public:
 		Temp->pPrev = Temp->pPrev->pNext = new Element(Data, Temp, Temp->pPrev);
 
 		size++;
+	}
+	void erase(int index)
+	{
+		Element* Temp;
+		if (index < size / 2)
+		{
+			Temp = Head;
+			for (int i = 0; i < index; i++)
+			{
+				Temp = Temp->pNext;
+			}
+		}
+		else
+		{
+			Temp = Tail;
+			for (int i = 0; i < size - index - 1; i++)
+			{
+				Temp = Temp->pPrev;
+			}
+		}
+		Temp->pPrev->pNext = Temp->pNext;
+		Temp->pNext->pPrev = Temp->pPrev;
+		delete Temp;
+		size--;
 	}
 
 	//                      Methods:
