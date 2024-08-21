@@ -420,6 +420,10 @@ void main()
 
 	List<std::string> s_list = { "Хорошо", "живёт", "на", "свете", "Винни", "Пух" };
 	for (std::string i : s_list)cout << i << tab; cout << endl;
+	for (List<std::string>::Iterator it = s_list.begin(); it != s_list.end(); ++it)
+		cout << *it << tab; cout << endl;
+	for (List<std::string>::ReverseIterator it = s_list.rbegin(); it != s_list.rend(); ++it)
+		cout<< *it << tab; cout << endl;
 	cout << delimeter << endl;
 
 
