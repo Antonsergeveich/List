@@ -1,4 +1,5 @@
 ﻿#include<iostream>
+#include<string>
 #include <new.h>
 using namespace std;
 
@@ -7,6 +8,7 @@ using std::cout;
 using std::endl;
 
 #define tab "\t"
+#define delimeter "\n-------------------------------\n"
 
 template<typename T>class List
 {
@@ -397,4 +399,28 @@ void main()
 	}
 	for (int i : list3) cout << i << tab; cout << endl;
 #endif // OPERATOR_PLUS_CHECK
+
+	List<int> i_list = { 3,5,8,13,21 };
+	for (int i : i_list)cout << i << tab; cout << endl;
+	for (List<int>::Iterator it = i_list.begin(); it != i_list.end(); ++it)
+		cout << *it << tab; 
+	cout << endl;
+	for (List<int>::ReverseIterator it = i_list.rbegin(); it != i_list.end(); ++it)
+		cout << *it << tab;
+	cout << endl;
+	cout << delimeter << endl;
+
+	List<double> d_list = { 2.7, 3.14, 5.5, 8.3 };
+	for (double i : d_list)cout << i << tab; cout << endl;
+	for (List<double>::Iterator it = d_list.begin(); it != d_list.end(); ++it)
+		cout << *it << tab; cout << endl;
+	for (List<double>::ReverseIterator it = d_list.rbegin(); it != d_list.rend(); ++it)
+		cout << *it << tab; cout << endl;
+	cout << delimeter << endl;
+
+	List<std::string> s_list = { "Хорошо", "живёт", "на", "свете", "Винни", "Пух" };
+	for (std::string i : s_list)cout << i << tab; cout << endl;
+	cout << delimeter << endl;
+
+
 }
