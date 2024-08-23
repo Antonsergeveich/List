@@ -18,19 +18,8 @@ template<typename T>class List
 		Element* pNext;//указательна следующий элемент
 		Element* pPrev;//указатель на предыдущий элемент
 	public:
-		Element(T Data, Element* pNext = nullptr, Element* pPrev = nullptr)
-			:Data(Data), pNext(pNext), pPrev(pPrev)
-		{
-#ifdef DEBUG
-			cout << "EConstructor:\t" << this << endl;
-#endif // DEBUG
-		}
-		~Element()
-		{
-#ifdef DEBUG
-			cout << "EDestructor:\t" << this << endl;
-#endif // DEBUG
-		}
+		Element(T Data, Element* pNext = nullptr, Element* pPrev = nullptr);
+		~Element();
 		friend class List;
 	}*Head, * Tail;  //объекты класса можно объявлять непосредственно после его описания.
 	//Element* Head;
@@ -52,19 +41,10 @@ template<typename T>class List
 		ConstBaseIterator(Element* Temp = nullptr) :Temp(Temp){}
 		~ConstBaseIterator() {}
 		//             Comparison operators:
-		bool operator==(const ConstBaseIterator& other)const
-		{
-			return this->Temp == other.Temp;
-		}
-		bool operator!=(const ConstBaseIterator& other)const
-		{
-			return this->Temp != other.Temp;
-		}
+		bool operator==(const ConstBaseIterator& other)const;
+		bool operator!=(const ConstBaseIterator& other)const;
 		//              Dereference operators (операторы разыименования):
-		const T& operator*()const
-		{
-			return Temp->Data;
-		}
+		const T& operator*()const;
 	};
 public:
 	class ConstIterator : public ConstBaseIterator
@@ -132,8 +112,44 @@ public:
 	void print()const;
 	void reverse_print()const;
 };
+
+/////////////////////////////////////////////////////////
+//////////         Element methods:           ///////////
+template<typename T>List<T>::Element::Element(T Data, Element* pNext, Element* pPrev)
+	:Data(Data), pNext(pNext), pPrev(pPrev)
+{
+#ifdef DEBUG
+	cout << "EConstructor:\t" << this << endl;
+#endif // DEBUG
+}
+template<typename T>List<T>::Element::~Element()
+{
+#ifdef DEBUG
+	cout << "EDestructor:\t" << this << endl;
+#endif // DEBUG
+}
+//////////         Element methods:           ///////////
+/////////////////////////////////////////////////////////
+
+/// ----------------------------------------------- ///
+
 ///////////////////////////////////////////////////////////
 //////////         Iterators methods:           ///////////
+
+//                Const base iterator:
+template <typename T>bool List<T>::ConstBaseIterator::operator==(const ConstBaseIterator& other)const
+{
+	return this->Temp == other.Temp;
+}
+template <typename T>bool List<T>::ConstBaseIterator::operator!=(const ConstBaseIterator& other)const
+{
+	return this->Temp != other.Temp;
+}
+//template<typename T>type name(parameters)modifiers
+template <typename T>const T& List<T>::ConstBaseIterator::operator*()const
+{
+	return Temp->Data;
+}
 
 //                 Const Iterator:
 template<typename T>typename List<T>::ConstIterator& List<T>::ConstIterator::operator++()
