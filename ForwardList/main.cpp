@@ -8,13 +8,14 @@ using std::endl;
 #define tab "\t"
 #define delimiter "\n------------------------------\n"
 
+template<typename T>
 class Element 
 {
-	int Data;          
-	Element* pNext;    
+	T Data;          
+	Element<T>* pNext;    
 	static int count;
 public:
-	Element(int Data, Element* pNext = nullptr) :Data(Data), pNext(pNext)
+	Element(T Data, Element<T>* pNext = nullptr) :Data(Data), pNext(pNext)
 	{
 		count++;
 		cout << "EConstructor:\t" << this << endl;
@@ -27,10 +28,11 @@ public:
 	friend class ForwardList;
 	friend class Iterator;
 };
-int Element::count = 0;
-class Iterator
+template<typename T> int Element<T>::count = 0;
+
+template<typename T>class Iterator
 {
-	Element* Temp;
+	Element<T>* Temp;
 public:
 	Iterator(Element* Temp) : Temp(Temp)
 	{
