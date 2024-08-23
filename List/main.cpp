@@ -175,35 +175,35 @@ public:
 	void reverse_print();
 };
 //                             List methods:
-template<typename T>List<T>::Iterator List<T>::begin()
+template<typename T>typename List<T>::Iterator List<T>::begin()
 {
 	return Head;
 }
-template<typename T>List<T>::Iterator List<T>::end()
+template<typename T>typename List<T>::Iterator List<T>::end()
 {
 	return nullptr;
 }
-template<typename T>List<T>::ConstIterator List<T>::begin()const
+template<typename T>typename List<T>::ConstIterator List<T>::begin()const
 {
 	return Head;
 }
-template<typename T>List<T>::ConstIterator List<T>::end()const
+template<typename T>typename List<T>::ConstIterator List<T>::end()const
 {
 	return nullptr;
 }
-template<typename T>List<T>::ReverseIterator List<T>::rbegin()
+template<typename T>typename List<T>::ReverseIterator List<T>::rbegin()
 {
 	return Tail;
 }
-template<typename T>List<T>::ReverseIterator List<T>::rend()
+template<typename T>typename List<T>::ReverseIterator List<T>::rend()
 {
 	return nullptr;
 }
-template<typename T>List<T>::ConstReverseIterator List<T>::rbegin()const
+template<typename T>typename List<T>::ConstReverseIterator List<T>::rbegin()const
 {
 	return Tail;
 }
-template<typename T>List<T>::ConstReverseIterator List<T>::rend()const
+template<typename T>typename List<T>::ConstReverseIterator List<T>::rend()const
 {
 	return nullptr;
 }
