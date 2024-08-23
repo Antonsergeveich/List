@@ -175,35 +175,35 @@ public:
 	void reverse_print();
 };
 //                             List methods:
-Iterator begin()
+template<typename T>List<T>::Iterator List<T>::begin()
 {
 	return Head;
 }
-Iterator end()
+template<typename T>List<T>::Iterator List<T>::end()
 {
 	return nullptr;
 }
-ConstIterator begin()const
+template<typename T>List<T>::ConstIterator List<T>::begin()const
 {
 	return Head;
 }
-ConstIterator end()const
+template<typename T>List<T>::ConstIterator List<T>::end()const
 {
 	return nullptr;
 }
-ReverseIterator rbegin()
+template<typename T>List<T>::ReverseIterator List<T>::rbegin()
 {
 	return Tail;
 }
-ReverseIterator rend()
+template<typename T>List<T>::ReverseIterator List<T>::rend()
 {
 	return nullptr;
 }
-ConstReverseIterator rbegin()const
+template<typename T>List<T>::ConstReverseIterator List<T>::rbegin()const
 {
 	return Tail;
 }
-ConstReverseIterator rend()const
+template<typename T>List<T>::ConstReverseIterator List<T>::rend()const
 {
 	return nullptr;
 }
