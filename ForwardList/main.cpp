@@ -1,4 +1,4 @@
-#include<iostream>
+п»ї#include<iostream>
 using namespace std;
 
 using std::cin;
@@ -159,7 +159,7 @@ public:
 		return Temp->Data;
 	}
 
-	//            Adding elements (добавление элемента): 
+	//            Adding elements (РґРѕР±Р°РІР»РµРЅРёРµ СЌР»РµРјРµРЅС‚Р°): 
 	void push_front(T Data)
 	{
 		Head = new Element<T>(Data, Head);
@@ -201,7 +201,7 @@ public:
 		size--;
 	}
 
-	void insert(int index, T Data) //Вставляет элемент по индексу
+	void insert(int index, T Data) //Р’СЃС‚Р°РІР»СЏРµС‚ СЌР»РµРјРµРЅС‚ РїРѕ РёРЅРґРµРєСЃСѓ
 	{
 		if (index > size)
 		{
@@ -210,15 +210,15 @@ public:
 		}
 		if (index == 0)return push_front(Data);
 		//if (index > size)return;
-		//Element* New = new Element(Data); //Выделяем память под новый элемент
-		Element<T>* Temp = Head; //Создаём итератор который будет указывать на текущий элемент в списке
-		for (int i = 0; i < index - 1; i++) //идём по списку до элемента перед добавляемым
+		//Element* New = new Element(Data); //Р’С‹РґРµР»СЏРµРј РїР°РјСЏС‚СЊ РїРѕРґ РЅРѕРІС‹Р№ СЌР»РµРјРµРЅС‚
+		Element<T>* Temp = Head; //РЎРѕР·РґР°С‘Рј РёС‚РµСЂР°С‚РѕСЂ РєРѕС‚РѕСЂС‹Р№ Р±СѓРґРµС‚ СѓРєР°Р·С‹РІР°С‚СЊ РЅР° С‚РµРєСѓС‰РёР№ СЌР»РµРјРµРЅС‚ РІ СЃРїРёСЃРєРµ
+		for (int i = 0; i < index - 1; i++) //РёРґС‘Рј РїРѕ СЃРїРёСЃРєСѓ РґРѕ СЌР»РµРјРµРЅС‚Р° РїРµСЂРµРґ РґРѕР±Р°РІР»СЏРµРјС‹Рј
 		{
 			if (Temp->pNext == nullptr)break;
 			Temp = Temp->pNext;
 		}
-		//New->pNext = Temp->pNext; //записываем в добавляемый элемент адрес следующего элемента
-		Temp->pNext = new Element<T>(Data, Temp->pNext); //в текущий записываем добавляемый
+		//New->pNext = Temp->pNext; //Р·Р°РїРёСЃС‹РІР°РµРј РІ РґРѕР±Р°РІР»СЏРµРјС‹Р№ СЌР»РµРјРµРЅС‚ Р°РґСЂРµСЃ СЃР»РµРґСѓСЋС‰РµРіРѕ СЌР»РµРјРµРЅС‚Р°
+		Temp->pNext = new Element<T>(Data, Temp->pNext); //РІ С‚РµРєСѓС‰РёР№ Р·Р°РїРёСЃС‹РІР°РµРј РґРѕР±Р°РІР»СЏРµРјС‹Р№
 		size++;
 	}
 	void erase(int index)
@@ -229,34 +229,34 @@ public:
 			return;
 		}
 		if (index == 0)return pop_front();
-		Element<T>* Temp = Head;//Создаём итератор и начинаем идти по элементам с головы списка
-		for (int i = 0; i < index - 1; i++)//Идём до нужного элемента
+		Element<T>* Temp = Head;//РЎРѕР·РґР°С‘Рј РёС‚РµСЂР°С‚РѕСЂ Рё РЅР°С‡РёРЅР°РµРј РёРґС‚Рё РїРѕ СЌР»РµРјРµРЅС‚Р°Рј СЃ РіРѕР»РѕРІС‹ СЃРїРёСЃРєР°
+		for (int i = 0; i < index - 1; i++)//РРґС‘Рј РґРѕ РЅСѓР¶РЅРѕРіРѕ СЌР»РµРјРµРЅС‚Р°
 		{
 			if (Temp->pNext == nullptr)break;
 			Temp = Temp->pNext;
 		}
-		Element<T>* Erased = Temp->pNext; // Сохраняем удаляемый элемент
-		Temp->pNext = Temp->pNext->pNext; // убираем элемент из списка
-		delete Erased;// удаляем элемент из памяти
+		Element<T>* Erased = Temp->pNext; // РЎРѕС…СЂР°РЅСЏРµРј СѓРґР°Р»СЏРµРјС‹Р№ СЌР»РµРјРµРЅС‚
+		Temp->pNext = Temp->pNext->pNext; // СѓР±РёСЂР°РµРј СЌР»РµРјРµРЅС‚ РёР· СЃРїРёСЃРєР°
+		delete Erased;// СѓРґР°Р»СЏРµРј СЌР»РµРјРµРЅС‚ РёР· РїР°РјСЏС‚Рё
 		size--;
 	}
 
 	//                  Methods:
 	void print()const
 	{
-		//Element* Temp = Head;   //Temp - это итератор.
-		//Итератор - это указатель, при помощи которого можно получить доступ к элементам структуры данных.  
+		//Element* Temp = Head;   //Temp - СЌС‚Рѕ РёС‚РµСЂР°С‚РѕСЂ.
+		//РС‚РµСЂР°С‚РѕСЂ - СЌС‚Рѕ СѓРєР°Р·Р°С‚РµР»СЊ, РїСЂРё РїРѕРјРѕС‰Рё РєРѕС‚РѕСЂРѕРіРѕ РјРѕР¶РЅРѕ РїРѕР»СѓС‡РёС‚СЊ РґРѕСЃС‚СѓРї Рє СЌР»РµРјРµРЅС‚Р°Рј СЃС‚СЂСѓРєС‚СѓСЂС‹ РґР°РЅРЅС‹С….  
 		//while (Temp)
 		//{
 		//	cout << Temp << tab << Temp->Data << tab << Temp->pNext << endl;
-		//	Temp = Temp->pNext; //Переход на следующий элемент.
+		//	Temp = Temp->pNext; //РџРµСЂРµС…РѕРґ РЅР° СЃР»РµРґСѓСЋС‰РёР№ СЌР»РµРјРµРЅС‚.
 		//}
 		for (Element<T>* Temp = Head; Temp; Temp = Temp->pNext)
 		{
 			cout << Temp << tab << Temp->Data << tab << Temp->pNext << endl;
 		}
-		cout << "Количество элементов списка: " << size << endl;
-		cout << "Общее количество элементов: " << Element<T>::count << endl;
+		cout << "РљРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ СЃРїРёСЃРєР°: " << size << endl;
+		cout << "РћР±С‰РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ: " << Element<T>::count << endl;
 	}
 	void reverse()
 	{
@@ -279,11 +279,11 @@ ForwardList<T> operator+(const ForwardList<T>& left, const ForwardList<T>& right
 	return buffer;
 }
 void Print(int arr[])
-//в функцию копируется указатель на массив arr, а не весь массив,
-//поэтому будет выведено количество элементов один,
-//а не количество элементов всего массива, так как 
-//sizeof(arr) / sizeof(arr[0]) = 4/4 = 1, а не размер всего массива
-//в байтах делённый на размер одного элемента в байтах;
+//РІ С„СѓРЅРєС†РёСЋ РєРѕРїРёСЂСѓРµС‚СЃСЏ СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РјР°СЃСЃРёРІ arr, Р° РЅРµ РІРµСЃСЊ РјР°СЃСЃРёРІ,
+//РїРѕСЌС‚РѕРјСѓ Р±СѓРґРµС‚ РІС‹РІРµРґРµРЅРѕ РєРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ РѕРґРёРЅ,
+//Р° РЅРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ РІСЃРµРіРѕ РјР°СЃСЃРёРІР°, С‚Р°Рє РєР°Рє 
+//sizeof(arr) / sizeof(arr[0]) = 4/4 = 1, Р° РЅРµ СЂР°Р·РјРµСЂ РІСЃРµРіРѕ РјР°СЃСЃРёРІР°
+//РІ Р±Р°Р№С‚Р°С… РґРµР»С‘РЅРЅС‹Р№ РЅР° СЂР°Р·РјРµСЂ РѕРґРЅРѕРіРѕ СЌР»РµРјРµРЅС‚Р° РІ Р±Р°Р№С‚Р°С…;
 {
 	//cout << typeid(arr).name() << endl;
 	//cout << sizeof(arr) << endl;
@@ -313,7 +313,7 @@ void main()
 	setlocale(LC_ALL, "");
 #ifdef BASE_CHECK
 	int n;
-	cout << "Введите воличество элементов списка: "; cin >> n;
+	cout << "Р’РІРµРґРёС‚Рµ РІРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ СЃРїРёСЃРєР°: "; cin >> n;
 	ForwardList list;
 	for (int i = 0; i < n; i++)
 	{
@@ -327,8 +327,8 @@ void main()
 	list.print();
 	int index;
 	int value;
-	cout << "Введите индекс добавляемого элемента: "; cin >> index;
-	cout << "Введите значение добавляемого элемента: "; cin >> value;
+	cout << "Р’РІРµРґРёС‚Рµ РёРЅРґРµРєСЃ РґРѕР±Р°РІР»СЏРµРјРѕРіРѕ СЌР»РµРјРµРЅС‚Р°: "; cin >> index;
+	cout << "Р’РІРµРґРёС‚Рµ Р·РЅР°С‡РµРЅРёРµ РґРѕР±Р°РІР»СЏРµРјРѕРіРѕ СЌР»РµРјРµРЅС‚Р°: "; cin >> value;
 	list.insert(index, value);
 	list.print();
 #endif // BASE_CHECK
@@ -389,10 +389,10 @@ void main()
 
 #ifdef INITIALIZER_LIST_CONSTRUCTOR_CHECK
 	ForwardList list1 = { 3,5,8,13,21 };
-	//Чтобы преобразовать из других типов в наш тип
-	//нужен конструктор с одним параметром(Single-argument constructor)
-	//и оператор присваивания (CopyAssignment) 
-	//причём второй без первого не работает;
+	//Р§С‚РѕР±С‹ РїСЂРµРѕР±СЂР°Р·РѕРІР°С‚СЊ РёР· РґСЂСѓРіРёС… С‚РёРїРѕРІ РІ РЅР°С€ С‚РёРї
+	//РЅСѓР¶РµРЅ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃ РѕРґРЅРёРј РїР°СЂР°РјРµС‚СЂРѕРј(Single-argument constructor)
+	//Рё РѕРїРµСЂР°С‚РѕСЂ РїСЂРёСЃРІР°РёРІР°РЅРёСЏ (CopyAssignment) 
+	//РїСЂРёС‡С‘Рј РІС‚РѕСЂРѕР№ Р±РµР· РїРµСЂРІРѕРіРѕ РЅРµ СЂР°Р±РѕС‚Р°РµС‚;
 	list1.print();
 #endif // INITIALIZER_LIST_CONSTRUCTOR_CHECK
 
@@ -406,16 +406,16 @@ void main()
 	cout << endl;
 
 	//Range-based for:
-	for (int i : arr) //Цикл for на основе диапазона; 
-		//Тип int переменной i будет использоваться для вычисления количества
-		//элементов массива (sizeof(arr) / sizeof(int)) в цикле for;
+	for (int i : arr) //Р¦РёРєР» for РЅР° РѕСЃРЅРѕРІРµ РґРёР°РїР°Р·РѕРЅР°; 
+		//РўРёРї int РїРµСЂРµРјРµРЅРЅРѕР№ i Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊСЃСЏ РґР»СЏ РІС‹С‡РёСЃР»РµРЅРёСЏ РєРѕР»РёС‡РµСЃС‚РІР°
+		//СЌР»РµРјРµРЅС‚РѕРІ РјР°СЃСЃРёРІР° (sizeof(arr) / sizeof(int)) РІ С†РёРєР»Рµ for;
 	{
 		cout << i << tab;
 	}
 https://legacy.cplusplus.com/doc/tutorial/control/#:~:text=equal%20to%2050.-,Range%2Dbased%20for%20loop,-The%20for%2Dloop
-	//Range - это диапазон. Под данным термином в этом контексте понимают контейнер;
-	//т.е. контейнером иногда называют 'range';
-	//Следовательно, Range-base for - это цикл for для контейнеров. 
+	//Range - СЌС‚Рѕ РґРёР°РїР°Р·РѕРЅ. РџРѕРґ РґР°РЅРЅС‹Рј С‚РµСЂРјРёРЅРѕРј РІ СЌС‚РѕРј РєРѕРЅС‚РµРєСЃС‚Рµ РїРѕРЅРёРјР°СЋС‚ РєРѕРЅС‚РµР№РЅРµСЂ;
+	//С‚.Рµ. РєРѕРЅС‚РµР№РЅРµСЂРѕРј РёРЅРѕРіРґР° РЅР°Р·С‹РІР°СЋС‚ 'range';
+	//РЎР»РµРґРѕРІР°С‚РµР»СЊРЅРѕ, Range-base for - СЌС‚Рѕ С†РёРєР» for РґР»СЏ РєРѕРЅС‚РµР№РЅРµСЂРѕРІ. 
 	cout << endl;
 	cout << typeid(arr).name() << endl;
 	Print(arr);
@@ -429,16 +429,16 @@ https://legacy.cplusplus.com/doc/tutorial/control/#:~:text=equal%20to%2050.-,Ran
 	{
 		//Error E2291 this range - based 'for' statement requires a suitable
 		//"begin" function and none was found;
-		//для этого оператора 'for', основанного на диапазоне,
-		//требуется подходящая функция "begin", но она не найдена;
+		//РґР»СЏ СЌС‚РѕРіРѕ РѕРїРµСЂР°С‚РѕСЂР° 'for', РѕСЃРЅРѕРІР°РЅРЅРѕРіРѕ РЅР° РґРёР°РїР°Р·РѕРЅРµ,
+		//С‚СЂРµР±СѓРµС‚СЃСЏ РїРѕРґС…РѕРґСЏС‰Р°СЏ С„СѓРЅРєС†РёСЏ "begin", РЅРѕ РѕРЅР° РЅРµ РЅР°Р№РґРµРЅР°;
 		//Error	C2672 'begin': no matching overloaded function found
-		//не найдена соответствующая перегруженная функция
+		//РЅРµ РЅР°Р№РґРµРЅР° СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰Р°СЏ РїРµСЂРµРіСЂСѓР¶РµРЅРЅР°СЏ С„СѓРЅРєС†РёСЏ
 		//Error	C2672 'end': no matching overloaded function found	
 		//Error	C3536 '<begin>$L0': cannot be used before it is initialized	
-		//не может быть использован до его инициализации
+		//РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅ РґРѕ РµРіРѕ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
 		//Error	C3536 '<end>$L0': cannot be used before it is initialized	
 		//Error	C2100 you cannot dereference an operand of type 'int'	
-		//вы не можете разыменовать операнд типа 'int'
+		//РІС‹ РЅРµ РјРѕР¶РµС‚Рµ СЂР°Р·С‹РјРµРЅРѕРІР°С‚СЊ РѕРїРµСЂР°РЅРґ С‚РёРїР° 'int'
 		cout << i << tab;
 	}
 	/*for (Iterator<int> it = list.begin(); it != list.end(); ++it)
@@ -452,7 +452,7 @@ https://legacy.cplusplus.com/doc/tutorial/control/#:~:text=equal%20to%2050.-,Ran
 		cout << i << tab;
 	}
 	cout << endl;
-	ForwardList<std::string> list3 = { "Здравствуйте", "Катю", "Можно" };
+	ForwardList<std::string> list3 = { "Р—РґСЂР°РІСЃС‚РІСѓР№С‚Рµ", "РљР°С‚СЋ", "РњРѕР¶РЅРѕ" };
 	for (std::string i : list3)cout << i << tab; cout << endl;
 	list3.reverse();
 	for (std::string i : list3)cout << i << tab; cout << endl;
