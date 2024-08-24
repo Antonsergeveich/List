@@ -8,8 +8,7 @@ using std::endl;
 #define tab "\t"
 #define delimiter "\n------------------------------\n"
 
-template<typename T>
-class Element 
+template<typename T>class Element 
 {
 	T Data;          
 	Element<T>* pNext;    
@@ -28,13 +27,14 @@ public:
 	friend class ForwardList;
 	friend class Iterator;
 };
+
 template<typename T> int Element<T>::count = 0;
 
 template<typename T>class Iterator
 {
 	Element<T>* Temp;
 public:
-	Iterator(Element* Temp) : Temp(Temp)
+	Iterator(Element<T>* Temp) : Temp(Temp)
 	{
 		cout << "IConstructor:\t" << this << endl;
 	}
@@ -61,18 +61,18 @@ public:
 	{
 		return this->Temp != other.Temp;
 	}
-	int operator*()
+	T operator*()
 	{
 		return Temp->Data;
 	}
-	int& operator*()const
+	T& operator*()const
 	{
 		return Temp->Data;
 	}
 };
-class ForwardList 
+template<typename T>class ForwardList 
 {
-	Element* Head; 
+	Element<T>* Head; 
 	unsigned int size; 
 public:
 	Iterator begin()
@@ -97,19 +97,19 @@ public:
 	{
 		while (size--)push_front(0);
 	}
-	ForwardList(const ForwardList& other) : ForwardList()
+	ForwardList(const ForwardList<T>& other) : ForwardList()
 	{
 		*this = other; 
 		cout << "CopyConstructor:\t" << this << endl;
 	}
-	ForwardList(ForwardList&& other) : ForwardList()
+	ForwardList(ForwardList<T>&& other) : ForwardList()
 	{
 		*this = std::move(other); 
 		cout << "MoveConstructor:" << this << endl; 
 	}
-	ForwardList(const initializer_list<int>& il) : ForwardList() 
+	ForwardList(const initializer_list<T>& il) : ForwardList() 
 	{
-		for (const int* it = il.begin(); it != il.end(); it++)
+		for (const T* it = il.begin(); it != il.end(); it++)
 		{
 			push_back(*it);
 		}
@@ -121,16 +121,16 @@ public:
 	}
 
 	//                 Operators:
-	ForwardList& operator = (const ForwardList& other)
+	ForwardList<T>& operator = (const ForwardList<T>& other)
 	{
 		if (this == &other)return *this;
 		this->~ForwardList();
-		for (Element* Temp = other.Head; Temp; Temp = Temp->pNext)
+		for (Element<T>* Temp = other.Head; Temp; Temp = Temp->pNext)
 			push_front(Temp->Data);
 		cout << "CopyAssignment:\t" << this << endl;
 		return *this;
 	}
-	ForwardList& operator = (ForwardList&& other)
+	ForwardList<T>& operator = (ForwardList<T>&& other)
 	{
 		if (this == &other)return *this;
 		this->~ForwardList();
@@ -155,28 +155,28 @@ public:
 	}
 
 	//            Adding elements (добавление элемента): 
-	void push_front(int Data)
+	void push_front(T Data)
 	{
-		Head = new Element(Data, Head);
+		Head = new Element<T>(Data, Head);
 		size++;
 	}
 
-	void push_back(int Data)
+	void push_back(T Data)
 	{
 		if (Head == nullptr)return push_front(Data); 
-		Element* Temp = Head; 
+		Element<T>* Temp = Head; 
 		while (Temp->pNext)
 		{
 			Temp = Temp->pNext;
 		}
-		Temp->pNext = new Element(Data);
+		Temp->pNext = new Element<T>(Data);
 		size++;
 	}
 	//               Removing elements:
 	void pop_front()
 	{
 		if (Head == nullptr)return; 
-		Element* Erased = Head;
+		Element<T>* Erased = Head;
 		Head = Erased->pNext;
 		delete Erased;
 		size--;
@@ -186,7 +186,7 @@ public:
 	void pop_back()
 	{
 		if (Head->pNext == nullptr)return pop_front();
-		Element* Temp = Head; 
+		Element<T>* Temp = Head; 
 		while (Temp->pNext->pNext)
 		{
 			Temp = Temp->pNext; 
@@ -196,7 +196,7 @@ public:
 		size--;
 	}
 
-	void insert(int index, int Data) //Вставляет элемент по индексу
+	void insert(int index, T Data) //Вставляет элемент по индексу
 	{
 		if (index > size)
 		{
@@ -206,14 +206,14 @@ public:
 		if (index == 0)return push_front(Data);
 		//if (index > size)return;
 		//Element* New = new Element(Data); //Выделяем память под новый элемент
-		Element* Temp = Head; //Создаём итератор который будет указывать на текущий элемент в списке
+		Element<T>* Temp = Head; //Создаём итератор который будет указывать на текущий элемент в списке
 		for (int i = 0; i < index - 1; i++) //идём по списку до элемента перед добавляемым
 		{
 			if (Temp->pNext == nullptr)break;
 			Temp = Temp->pNext;
 		}
 		//New->pNext = Temp->pNext; //записываем в добавляемый элемент адрес следующего элемента
-		Temp->pNext = new Element(Data, Temp->pNext); //в текущий записываем добавляемый
+		Temp->pNext = new Element<T>(Data, Temp->pNext); //в текущий записываем добавляемый
 		size++;
 	}
 	void erase(int index)
@@ -224,13 +224,13 @@ public:
 			return;
 		}
 		if (index == 0)return pop_front();
-		Element* Temp = Head;//Создаём итератор и начинаем идти по элементам с головы списка
+		Element<T>* Temp = Head;//Создаём итератор и начинаем идти по элементам с головы списка
 		for (int i = 0; i < index - 1; i++)//Идём до нужного элемента
 		{
 			if (Temp->pNext == nullptr)break;
 			Temp = Temp->pNext;
 		}
-		Element* Erased = Temp->pNext; // Сохраняем удаляемый элемент
+		Element<T>* Erased = Temp->pNext; // Сохраняем удаляемый элемент
 		Temp->pNext = Temp->pNext->pNext; // убираем элемент из списка
 		delete Erased;// удаляем элемент из памяти
 		size--;
@@ -246,12 +246,23 @@ public:
 		//	cout << Temp << tab << Temp->Data << tab << Temp->pNext << endl;
 		//	Temp = Temp->pNext; //Переход на следующий элемент.
 		//}
-		for (Element* Temp = Head; Temp; Temp = Temp->pNext)
+		for (Element<T>* Temp = Head; Temp; Temp = Temp->pNext)
 		{
 			cout << Temp << tab << Temp->Data << tab << Temp->pNext << endl;
 		}
 		cout << "Количество элементов списка: " << size << endl;
-		cout << "Общее количество элементов: " << Element::count << endl;
+		cout << "Общее количество элементов: " << Element<T>::count << endl;
+	}
+	void reverse()
+	{
+		ForwardList<T> buffer;
+		while (Head)
+		{
+			buffer.push_front(Head->Data);
+			pop_front();
+		}
+		this->Head = buffer.Head;
+		buffer.Head = nullptr;
 	}
 };
 
