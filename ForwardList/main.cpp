@@ -8,6 +8,10 @@ using std::endl;
 #define tab "\t"
 #define delimiter "\n------------------------------\n"
 
+template<typename T>class ForwardList;
+template<typename T>class Iterator;
+template<typename T>ForwardList<T> operator+(const ForwardList<T>& left, const ForwardList<T>& right);
+
 template<typename T>class Element 
 {
 	T Data;          
@@ -76,11 +80,11 @@ template<typename T>class ForwardList
 	Element<T>* Head; 
 	unsigned int size; 
 public:
-	Iterator begin()
+	Iterator<T> begin()
 	{
 		return Head;
 	}
-	Iterator end()
+	Iterator<T> end()
 	{
 		return nullptr;
 	}
@@ -419,7 +423,7 @@ https://legacy.cplusplus.com/doc/tutorial/control/#:~:text=equal%20to%2050.-,Ran
 #endif // RANGE_BASED_FOR_ARRAY
 
 #ifdef RANGED_BASED_FOR_LIST
-	ForwardList list = { 3,5,8,13,21 };
+	ForwardList<int> list = { 3,5,8,13,21 };
 	//list.print();
 	for (int i : list)
 	{
@@ -437,7 +441,7 @@ https://legacy.cplusplus.com/doc/tutorial/control/#:~:text=equal%20to%2050.-,Ran
 		//вы не можете разыменовать операнд типа 'int'
 		cout << i << tab;
 	}
-	for (Iterator it = list.begin(); it != list.end(); ++it)
+	for (Iterator<int> it = list.begin(); it != list.end(); ++it)
 	{
 		cout << *it << tab;
 	}
