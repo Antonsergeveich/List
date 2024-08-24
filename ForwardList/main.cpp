@@ -21,12 +21,12 @@ public:
 	Element(T Data, Element<T>* pNext = nullptr) :Data(Data), pNext(pNext)
 	{
 		count++;
-		cout << "EConstructor:\t" << this << endl;
+		//cout << "EConstructor:\t" << this << endl;
 	}
 	~Element()
 	{
 		count--;
-		cout << "EDestructor:\t" << this << endl;
+		//cout << "EDestructor:\t" << this << endl;
 	}
 	friend class ForwardList<T>;
 	friend class Iterator<T>;
@@ -41,11 +41,11 @@ template<typename T>class Iterator
 public:
 	Iterator(Element<T>* Temp) : Temp(Temp)
 	{
-		cout << "IConstructor:\t" << this << endl;
+		//cout << "IConstructor:\t" << this << endl;
 	}
 	~Iterator()
 	{
-		cout << "IDestructor:\t" << this << endl;
+		//cout << "IDestructor:\t" << this << endl;
 	}
 	Iterator& operator++()
 	{
@@ -96,7 +96,7 @@ public:
 	{
 		Head = nullptr;
 		size = 0;
-		cout << "LConstructor:\t" << this << endl;
+		//cout << "LConstructor:\t" << this << endl;
 	}
 	explicit ForwardList(unsigned int size) : ForwardList() 
 	{
@@ -105,12 +105,12 @@ public:
 	ForwardList(const ForwardList<T>& other) : ForwardList()
 	{
 		*this = other; 
-		cout << "CopyConstructor:\t" << this << endl;
+		//cout << "CopyConstructor:\t" << this << endl;
 	}
 	ForwardList(ForwardList<T>&& other) : ForwardList()
 	{
 		*this = std::move(other); 
-		cout << "MoveConstructor:" << this << endl; 
+		//cout << "MoveConstructor:" << this << endl; 
 	}
 	ForwardList(const initializer_list<T>& il) : ForwardList() 
 	{
@@ -122,7 +122,7 @@ public:
 	~ForwardList()
 	{
 		while (Head)pop_front(); 
-		cout << "LDestructor:\t" << this << endl;
+		//cout << "LDestructor:\t" << this << endl;
 	}
 
 	//                 Operators:
@@ -132,7 +132,7 @@ public:
 		this->~ForwardList();
 		for (Element<T>* Temp = other.Head; Temp; Temp = Temp->pNext)
 			push_front(Temp->Data);
-		cout << "CopyAssignment:\t" << this << endl;
+		//cout << "CopyAssignment:\t" << this << endl;
 		return *this;
 	}
 	ForwardList<T>& operator = (ForwardList<T>&& other)
@@ -143,7 +143,7 @@ public:
 		this->size = other.size;
 		other.Head = nullptr;
 		other.size = 0;
-		cout << "MoveAssignment:\t" << this << endl;
+		//cout << "MoveAssignment:\t" << this << endl;
 	}
 
 	const int& operator[](int index)const
@@ -441,11 +441,24 @@ https://legacy.cplusplus.com/doc/tutorial/control/#:~:text=equal%20to%2050.-,Ran
 		//вы не можете разыменовать операнд типа 'int'
 		cout << i << tab;
 	}
-	for (Iterator<int> it = list.begin(); it != list.end(); ++it)
+	/*for (Iterator<int> it = list.begin(); it != list.end(); ++it)
 	{
 		cout << *it << tab;
-	}
+	}*/
 	cout << endl;
+	
+	ForwardList<double> list2 = { 1.1, 4.5, 2.3, 8.4, 5.5 };
+	for (double i : list2)
+	{
+		cout << i << tab;
+	}
+	
+	cout << endl;
+	ForwardList<std::string> list3 = { "Здравствуйте", "Катю", "Можно" };
+	for (std::string i : list3)cout << i << tab; cout << endl;
+	list3.reverse();
+	for (std::string i : list3)cout << i << tab; cout << endl;
+	
 #endif // RANGED_BASED_FOR_LIST
 
 }
