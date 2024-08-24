@@ -24,8 +24,9 @@ public:
 		count--;
 		cout << "EDestructor:\t" << this << endl;
 	}
-	friend class ForwardList;
-	friend class Iterator;
+	friend class ForwardList<T>;
+	friend class Iterator<T>;
+	friend ForwardList<T> operator+(const ForwardList<T>& left, const ForwardList<T>& right);
 };
 
 template<typename T> int Element<T>::count = 0;
@@ -265,10 +266,10 @@ public:
 		buffer.Head = nullptr;
 	}
 };
-
-ForwardList operator+(const ForwardList& left, const ForwardList& right)
+template<typename T>
+ForwardList<T> operator+(const ForwardList<T>& left, const ForwardList<T>& right)
 {
-	ForwardList buffer = left;
+	ForwardList<T> buffer = left;
 	//for (int i = 0; i < left.get_size(); i++)buffer.push_back(left[i]);
 	for (int i = 0; i < right.get_size(); i++)buffer.push_back(right[i]);
 	return buffer;
