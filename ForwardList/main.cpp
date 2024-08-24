@@ -446,13 +446,11 @@ https://legacy.cplusplus.com/doc/tutorial/control/#:~:text=equal%20to%2050.-,Ran
 		cout << *it << tab;
 	}*/
 	cout << endl;
-	
 	ForwardList<double> list2 = { 1.1, 4.5, 2.3, 8.4, 5.5 };
 	for (double i : list2)
 	{
 		cout << i << tab;
 	}
-	
 	cout << endl;
 	ForwardList<std::string> list3 = { "Здравствуйте", "Катю", "Можно" };
 	for (std::string i : list3)cout << i << tab; cout << endl;
